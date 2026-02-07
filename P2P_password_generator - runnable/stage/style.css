@@ -1,0 +1,489 @@
+*{
+    --noData_border: 0.3rem inset rgba(0, 0, 0, 0.5);
+    --rightData_border: 0.3rem inset rgba(0, 255, 0, 0.5);
+    --wrongData_border: 0.3rem inset rgba(255, 0, 0, 0.5);
+    --panels_border: 0.1rem groove rgba(159, 159, 159, 0.5);
+    --button_border: 0.1rem outset rgba(159, 159, 159, 0.5);
+    --monitor_color: #121212;
+    --buttons_color: #575858;
+    --pressed-color: #666666;
+    --buttons_text: #b3b3b3;
+    --display_text: rgba(255, 58, 58, 1);
+    --background-patterns: center repeat border-box;
+    /* --controlled-width:20px; */
+    *{
+    margin: 0px;
+    padding:0px;
+    }
+    box-sizing: border-box;
+
+    *:focus{
+        outline:none;
+    }
+}
+
+@font-face {
+    font-family: calculator;
+    src: url("res/font/Calculator.ttf");
+}
+@font-face {
+    font-family: 'instruction';
+    src: url("res/font/Instruction.otf")
+}
+
+html{
+    height: 100vh;
+    align-content: center;
+    background-image: url('res/outer_panel_texture.png');
+}
+
+
+.noData{border: var(--noData_border);}
+.rightData{border: var(--rightData_border);}
+.wrongData{border: var(--wrongData_border);}
+
+body{
+    display: grid;
+    max-width: 96vw;
+    height: fit-content;
+    padding: 2.4rem 1.6rem;
+    margin: 0px clamp(12vw, 8em, 8vw);
+    border-style: outset;
+    border-color: rgba(74, 74, 74, 0.5);
+    align-items: center;
+    justify-content: center;
+    box-shadow: inset 0.1rem 0.2rem 0.4rem #c5c5c5;
+    background: var(--background-patterns);
+    background-image: url('res/panel_texture.png');
+
+    animation-name: dialog_body;
+    animation:none;
+}
+
+body > * {
+    min-width: min(24rem, 100%);
+}
+
+article,form {
+    display: grid;
+    gap: 0.8rem;
+    margin: 0.8rem auto;
+    width: 72% !important;
+}
+
+
+dialog:open{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 1rem;
+    margin: auto;
+    width: min-content;
+    overflow: hidden;
+    border: var(--panels_border);
+    border-width: 0.20rem;
+    border-radius: 5%;
+    background: var(--background-patterns);
+    background-image: url("res/panel_texture.png");
+
+    animation-name: dialog;
+    animation: none;
+
+        .message {
+                border: var(--noData_border);
+                border-radius:0% !important;
+                padding: 1rem;
+                justify-content: start;
+                white-space: pre;
+                overflow: visible;
+            }
+
+    ::backdrop{
+        background-color: rgba(74, 74, 74, 0.5);
+
+        animation-name: dialog_backdrop;
+        animation: none;
+    }
+
+     > form{
+        width: 96% !important;
+        justify-content: center;
+    }
+}
+
+
+
+dialog#error::backdrop{
+    background-color: rgba(74, 74, 74, 0.5);
+    content:"";
+    background-image:repeating-linear-gradient(
+        24% rgba(18, 17, 17, 0.5), 
+        75% rgba(255, 0, 0, 0.5),
+        25% rgba(255, 0, 0, 0.5),
+        76% rgba(18, 17, 17, 0.5)
+    );
+
+    animation-name: dialog_backdrop;
+    animation: none;
+}
+
+
+
+input,dialog .message,.field{
+    border-radius: 20%;
+    width: min-content;
+    background-color: var(--monitor_color);
+    font-family: calculator;
+    text-align: center;
+    color: var(--display_text);
+    min-height: 1.6rem;
+    max-width: inherit;
+    min-width: inherit;
+    padding: 0px 0.4rem;
+    font-size: 1rem;
+    box-shadow: inset 0.1rem 0.2rem 0.4rem #020202;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    justify-self: anchor-center;
+}
+input{
+    pointer-events: none;
+}
+
+button {
+    display: inline-block;
+    border: var(--button_border);
+    border-width: 0.20rem;
+    background: var(--background-patterns);
+    background-color: var(--buttons_color);
+    background-image: url('res/button_texture.png');
+    font-family: 'instruction';
+    font-size: 0.8rem;
+    width: var(--button-size);
+    justify-self: end;
+    padding: 0.08rem 4px;
+    box-shadow: 0.05rem 0.05rem 0.1rem #85888a;
+}
+
+button:active{
+    border-style: inset;
+    background-color: var(--pressed-color);
+    background-image: none;
+        border-color: rgb(142 142 142 / 74%);
+            box-shadow: none;
+    *{
+        transform: scale(99.76%)
+    }
+}
+
+
+.overlayed {
+    position: relative;
+    min-width: 88%;
+    max-width: 88%;
+}
+
+.overlayed:before {
+    content: "";
+    position: absolute;
+    z-index: 2;
+    bottom: 0px;
+    right: -0.5%;
+    background-image: url("res/overlay.png");
+    width: 100%;
+    height: 100%;
+    border-radius: 24%;
+    filter: contrast(120%) opacity(20%);
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    pointer-events: none;
+}
+
+.panels {
+    display: grid;
+    grid-template-rows: auto;
+    grid-template-columns: 1fr;
+    gap: 0.4rem;
+    font-family: 'instruction';
+    background: var(--background-patterns);
+    background-image: url('./res/panel_texture.png');
+    border: var(--panels_border); 
+    padding: 0% 4%;
+    width: -webkit-fill-available;
+    min-width: 96%;
+    justify-content: center;
+    align-items: center;
+    justify-items: center;
+        box-shadow: inset 0.1rem 0.2rem 0.4rem #bdbcbc;
+
+    label, button, .text{
+        font-size: 0.8rem;
+        display: inline-flex;
+        align-items: center;
+        place-self: center;
+        text-align: center; 
+        justify-content: space-around;
+        text-wrap: nowrap;
+        margin: 0.4rem 0%;
+        min-width: inherit;
+        width: 88%;
+    }
+    button.small {
+        display: inline-block;
+        max-width: min-content;
+        padding: 0px 4px;
+        min-width: min-content;
+        max-width: fit-content;
+    }
+}
+
+
+
+.panels.bars {
+    display: flex;
+    width: 100%;
+    font-weight: 500;
+    padding: 0.1rem;
+    justify-content: space-between;
+     p{
+        margin: 0% auto;
+        font-size: smaller;
+     }
+     button {
+        max-width: fit-content;
+        height: 2.2rem;
+     }
+}
+
+header{
+    font-weight: 600;
+}
+
+input[type=file]::file-selector-button{
+    display:none
+}
+/*  ONLY IF FILE INPUT'S BUTTON IS VISIBLE
+input[type=file]{
+border-radius: 0% 20% 20% 0%;
+}
+input[type=file]::file-selector-button,button{
+display: inline-block;
+border: var(--panels_border);
+border-width: 0.20rem;
+background: var(--background-patterns);
+background-color: var(--buttons_color); 
+background-image: url('./res/button_texture.png');
+font-family: 'Anita semi square';
+font-size:0.8rem;
+width: var(--button-size);
+justify-self: end;
+}
+.overlayed#file:after{
+    width: calc(100% - var(--button-size));
+} 
+*/
+input[type=file]{
+    visibility: hidden;
+    position: absolute;
+}
+
+input[type=password]{
+-webkit-text-security: square;   
+z-index: 1;   
+}
+input[type=number]{
+    display: inline-block;
+    width: 3rem;
+}
+input[type=number]::-webkit-inner-spin-button{
+    display:none;
+}
+
+input[type=checkbox]{
+            display: inline;
+            position: absolute;
+            visibility: hidden;
+}
+
+#ckBox{ /* replace the default checkbox */
+    content:"";
+    min-width: 0.8rem; /*min/width because overwrite the .overlayed rule*/
+    height: 0.8rem;
+    background-color: #1f1f1f;
+    border: var(--noData_border);
+    border-radius: 20%;
+    display: inline-block;
+}
+input[type=checkbox]:checked + #ckBox{
+    background-color: var(--display_text);
+}
+
+input::placeholder {
+    color: var(--display_text);
+}
+
+
+#options {
+    display: flex;
+    text-align: left;
+    flex-direction: column;
+    align-items: flex-start;
+    box-sizing: border-box;
+    padding: 0px 8%;
+    > * {
+        display: flex;
+        margin: 0.2rem auto;
+        justify-content: space-around;
+    }
+}
+
+#choosed {
+    margin: 0% auto;
+}
+
+#monitor{
+    display: flex;
+    width: 80%; 
+    min-width:14rem;
+    aspect-ratio: 1/1;
+    background-color: var(--monitor_color);
+    color: var(--display_text);
+    font-family: calculator;
+    border-radius: 45%;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    margin: 2%;
+    box-shadow: inset 0.1rem 0.2rem 0.4rem #020202;
+     p {
+        box-shadow: none;
+     }
+}
+#preview {
+    max-width: -webkit-fill-available;
+    display: inline-block;
+    aspect-ratio: 1/1 ;
+    object-fit: cover;
+    aspect-ratio: 1/1;
+    object-fit: contain;
+    filter: brightness(0.8);
+    filter:grayscale();
+}
+#lengthOpt{
+    display: flex;
+    justify-content: space-around;
+    inline-size: -webkit-fill-available;
+    align-content: center;
+    align-items: baseline;
+    inline-size: 80%;
+    margin-left: 0px;
+    > * {
+        display: flex;
+        align-items: center;
+        flex-direction: row;
+    }
+}
+
+.vieWrapper{
+    display:flex;
+    gap: 0.2rem;
+    align-items: baseline;
+}
+
+ #preview:not([src]){/* per nasconedere l'icona 'immagine mancante' bisogna nascondere tutto l'elemento img*/
+    display: none;
+} 
+
+#run{
+    margin: 4% 0%;
+    height: min-content;
+    min-width: fit-content;
+    /* font-weight: bold; */
+    font-size: large;
+    padding: 0.4rem;
+}
+ 
+@media (prefers-reduced-motion: no-preference){ /* dialog 2s ease-out normal forwards; */
+
+    .openDialog{ 
+        animation-duration: 2s;
+        animation-timing-function: ease-out;
+        animation-direction:  normal;
+        animation-fill-mode:  forwards; 
+    }   
+    .closeDialog{ 
+        animation-duration: 2s;
+        animation-timing-function: ease-out;
+        animation-direction: reverse;
+        animation-fill-mode: forwards;
+    } 
+
+    @keyframes dialog{
+        0%{
+            margin: 0% auto;
+            transform: scale(95%);
+        }
+        90%{
+            transform: scale(100%);
+        }
+        100%{
+            margin: 25% auto;
+        }   
+    }
+    @keyframes dialog_backdrop{
+        0%{
+            opacity: 0%;
+        }
+        25%{
+            opacity:100%;
+        }
+    }
+    @keyframes dialog_body{
+        0%{
+            transform: scale(100%);
+        }
+        90%{
+            transform: scale(95%);
+        }
+    }
+}
+
+@media screen and (width >=1200px) and (orientation: landscape) {
+        body {
+                grid-template-columns: 1fr 3rem 1fr;
+                margin: 0px clamp(4em, 16em, 80vw);
+            }
+        
+            hr {
+                transform: rotate(90deg);
+                min-width: 1rem !important;
+            }
+        
+            .bars {
+                grid-column: span 4;
+                max-width: 100%;
+            }
+        
+            #options button {
+                width: 88%;
+            }
+}
+
+@media screen and (width >= 855px) and (orientation: landscape) {
+    body {
+        grid-template-columns: 1fr 3rem 1fr;
+    }
+    hr{
+        transform: rotate(90deg);
+        min-width: 1rem !important;
+    }
+
+    .bars{
+        grid-column: span 4;
+        max-width: 100%;
+    }
+    #options button{
+        width: 88%;
+    }
+}

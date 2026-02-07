@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>P2P</title>
+  <link rel="icon" type="image/x-icon" href="/favicon.ico"/>
+  <link rel="stylesheet" href="style.css"/>
+  <link rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&icon_names=mystery"
+    onload='(()=>{let iconButton = document.getElementById("icon");console.log("loaded");iconButton.innerText = "mystery"})()' />
+</head>
+
+<body>
+
+  <dialog class="modal" id="intro" hidden>
+    <form method="dialog" action="." >
+      <h4 class="panels">Welcome to P2P</h4>
+      <pre class="overlayed message">
+  This web-app can elaborate images and words togheter
+  to generate complex passwords.
+  
+  To generate your password,
+  please compile all the fields with required data:
+    * A jpeg image from your device;
+      if it's the correct type you will see it in the preview monitor.
+    
+    * Any word easy to remember, 
+      like a name related to the image.
+    
+  Optionally choose the length for the password
+  then, press the 'run' button. 
+
+  * if the generated password contais characters 
+    unaccepted in the site where i will use it,
+    try to activate the limited characters option.
+    and generate it again.
+  
+  By using the same image, name and settings 
+  will always be generated the same password.
+  
+  after copying it, you just need to paste it 
+  (right-click menu, paste) where you need it. 
+      </pre>
+     <button type="submit" class="closeModal">CONTINUE</button>
+    </form>
+  </dialog>
+
+  <header class="panels bars">
+    <span> P 2 P </span>
+
+    <div class="vieWrapper">
+      <button type="button" id="tutorial" class="clickLabel" name="tutorial">
+        <span for="tutorial" id="top" class="text small">
+          tutorial
+        </span>
+      </button>
+      <button type="button" class="small" id="view" name="view">
+        <span id="icon" class="material-symbols-outlined text">
+        🔍
+        </span> 
+      </button>
+    </div>
+    
+  </header>
+
+  <form id="inputs">
+    <section id="userData" class="panels" id="pickWidth">
+      <button id="img" type="button" class="clickLabel" name="file" onclick="console.log('click on img button')">
+      <label for="image"  onclick="console.log('click on img label')">
+          <div class="overlayed">
+            <p id="placeholder" class="field noData">Pick an jpg image</p>
+            <input type="file" accept=".jpg" id="image" name="image" class="noData" required   onclick="console.log('click on img input')"/>
+          </div>
+        </label>
+      </button>
+
+      <button id="name" type="button" class="clickLabel" name="word">
+        <label for="word">
+          <div class="overlayed">
+            <input type="password" autocomplete="false" id="word" name="name" class="noData"  required placeholder="A name or word" />
+          </div>
+        </label>
+      </button>
+    </section>
+    
+    <section id="choosed" class="panels">
+      <div id="monitor" class=" noData overlayed">
+        <img alt="preview" id="preview" />
+        <p class="field">PREVIEW</p>
+      </div>
+    </section>
+  </form>
+
+  <hr>
+
+  <article id="outputs">
+    <section id="options" class="panels">
+        <p style="margin:0.4rem auto;">Options:</p>
+
+        <button type="button" class="clicLabel">
+          <label for="limited">
+            Limited characters?
+            <input type="checkbox" id="limited" name="limited">
+            <span class="overlayed" id="ckBox"></span>
+          </label>
+        </button>
+
+        <div id="lengthOpt">
+          <span>Lenght?</span>
+          <div >
+            <span class="overlayed">
+              <input type="number" id="length" name="number" class="noData" value="16" />
+            </span>
+            <button type="button" class="clickLabel small" name="+8" > <label for="length" id="+8"> +8 </label> </button> 
+            <button type="button" class="clickLabel small" name="-8" > <label for="length" id="-8"> -8 </label> </button>
+          </div>
+        </div>
+
+    </section>
+    
+    <section id="result" class="panels">
+      <div id="runBar">
+        <button id="run" type="button">Generate your Password</button>
+      </div>
+      
+      <span id="resultTitle"> Resulting password: </span>
+      <button type="button" name="copy" 
+              class="clickLabel">      
+        <label for="result" style="flex-direction: column;" id="copy" >
+          <div class="overlayed">
+            <input type="password" name="result" 
+              class="passwords noData overlayed" 
+              autocomplete = "new-password"
+              id="passcode"
+            >
+          </div>
+          Click to copy it.
+          </label>
+      </button>
+    </section>
+
+  </article>
+
+  <footer class="panels bars">
+    <p><span>No one data is conserved, </span> <span>please remeber wich image and name you used</span></p>
+  </footer>
+
+  <dialog class="modal" id="error" hidden>
+      <form method="dialog" >
+        <pre class="overlayed message">
+            ERROR
+          please check for all requested inputs:
+          * A word, or phrases correlated to the image,
+          minimum 5 characters.
+          *Any jpg image of your choice,
+          if you don't see the preview, try with another image.
+          Then click on 'run' button.
+        </pre>
+        <button type="submit" name="close" class="closeModal">BACK</button>
+      </form>
+  </dialog>
+
+</body>
+
+<script src="input_controller.mjs" type="module" crossorigin="anonymous" defer ></script>
+
+<script src="app.js" type="module" crossorigin="anonymous" defer></script>
+
+</html>
