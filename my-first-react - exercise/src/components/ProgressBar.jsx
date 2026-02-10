@@ -9,7 +9,7 @@ export default function ProgressBar(){
     let percentage = useRef(0)
 
     const context = useContext(ProgressContext);
-    // console.log("from ProgresssBar, progress obj: ", context.progress);
+    console.log("from ProgresssBar, progress obj: ", context.progress);
     
     let done = context.progress.done
     let total = context.progress.total

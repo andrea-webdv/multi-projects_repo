@@ -1,0 +1,16 @@
+* {
+  --trail: #ffff00;
+  --path: #282c34;
+}
+*  .CircularProgressbar-path {
+  stroke: var(--path);
+  stroke-opacity: 100;
+  stroke-width: 6;
+}
+*  .CircularProgressbar-trail {
+  stroke: var(--trail);
+  stroke-opacity: 100;
+}
+#value{
+  margin:auto;
+}

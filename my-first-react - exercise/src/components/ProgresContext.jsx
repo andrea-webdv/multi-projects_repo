@@ -14,13 +14,13 @@ function ProgressKeeper({children}){
     const [progress, setProgress] = useState({ total:0, done:0});
     /*const progress = useRef({ total:0, done:0}); */ 
 
-    function registerProgress (operation) {
+    function registerProgress (operation, data) {
         let totalLength = localStorage.length
         let doneCount = 0;
 
         if (operation === "total") {
            setProgress((last) => {
-            let newState = {total:totalLength, done: last.done};
+            let newState = {total:data, done: last.done};
             return newState
         }) 
 

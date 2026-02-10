@@ -7,8 +7,9 @@ import { ProgressContext } from "./ProgresContext";
 const url = '/list.json';
 
 function ListPage () {
-    const list = ListFetcher({url}) 
+    const list = ListFetcher({url});
     const done = useRef(false);
+
      console.log("compilation check:", done);
      
     
@@ -27,8 +28,9 @@ function ListPage () {
     done.current = true;
     useEffect(()=>{
         if(done) {
-            context.registerProgress("total");
+            context.registerProgress("total", jsx.length);
         }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [done]);
 
 

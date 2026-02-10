@@ -1,32 +1,23 @@
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 
 function FetchFacts({time}) {
     let [catFact, setCatFact] = useState("catFacts here!");
-
-    let[halfMinute, setHalfMinute] = useState(time.seconds);
-
+    
+    //pattern to check if the actua value of the prop is changed
+    let run = useMemo(()=>{ console.log("PROP: ",time);
+     return time},[time])
     useEffect(()=>{
-            if (halfMinute === time.seconds + 30){
-                setHalfMinute(time.seconds)
-            }else if (halfMinute === time.seconds - 30){
-
-                setHalfMinute(time.seconds)
-            }
-    },[time.seconds])
-
-
-    useEffect(()=>{
-    if(halfMinute){
+        console.log("running? ", run);
+        
+   
         axios.get("https://catfact.ninja/fact?max_length=64")
             .then(res =>{
                 setCatFact(res.data.fact);
             });    
-    }
-    },[halfMinute]);
+    
+    },[run]);
 
-
-    //add a callback for add and remove after 1sec an animation class
 
     return(
         <div id="catbox">

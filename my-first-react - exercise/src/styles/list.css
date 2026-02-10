@@ -1,32 +1,35 @@
-dl{
-    display: grid;
-    grid-template-columns: repeat(3, max-content);
-    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    font-size: calc(4px + 2vmin);
+dl {
+  display: grid;
+  grid-template-columns: repeat(3, max-content);
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  font-size: calc(4px + 2vmin);
 
-    dt{
-        font-size: calc(8px + 2vmin);
-        color: yellow;
-        font-weight:600;
-    }
-    dd{
-        text-align: start;
-    }
-    dd.done{
-        color: #61dafb;
-    }
+  dt {
+    font-size: calc(8px + 2vmin);
+    color: yellow;
+    font-weight: 600;
+  }
+  dd {
+    text-align: start;
+  }
+  dd.done {
+    color: #61dafb;
+  }
 }
-dd input{
-    margin: 0.8vmin;
-    margin-left: 0px;
+dd input {
+  margin: 0.8vmin;
+  margin-left: 0px;
 }
-.chapter{
-    margin: 1rem;
+.chapter {
+  margin: 1rem;
+}
 
-}
-dl .progress{
-    margin: 1rem calc(1rem + 40px);
-    width: 200%;
-    min-height: 4rem;
-    outline: 2px dashed yellow;
+dl #progress {
+  margin: 1.6em auto 0rem;
+  max-height: 8rem;
+  max-width: max-content;
+  color: #ffff00;
+  font-style: italic;
+  display: flex;
+  gap: 1.6rem;
 }
